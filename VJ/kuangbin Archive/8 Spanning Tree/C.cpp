@@ -88,7 +88,6 @@ int main(int argc, char const *argv[])
 					dis2 = min(dis2, dis + cost[i][j] - mx[i][j]);
 
 		cout << dis << ' ' << dis2 << endl;
-
 	}
 
 	return 0;
