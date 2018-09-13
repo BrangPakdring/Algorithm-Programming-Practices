@@ -3,14 +3,19 @@ using namespace std;
 using ll = long long;
 
 /* 
-	revised from kuangbin's template.
+	reference: kuangbin's template.
 	Prim() returns the total weight of MST.
 	after calling Prim(), search for SBMST.
 	mx[i][j] gives the maximum weight of an edge of the cycle connecting i and j.
+	in case there exists multiple edges, see Kruskal.
 
-	Note:
+	problem link:
 	Qin Shi Huang's National Road System
 */
+
+constexpr ll maxn = 105;
+constexpr ll maxm = 10005;
+constexpr ll inf = 0x3f3f3f3f3f3f3f3f;
 
 using WeightType = ll;
 bool vis[maxn];
@@ -63,3 +68,4 @@ WeightType Prim(WeightType cost[][maxn], ll n)
 	}
 	return ans;
 }
+
