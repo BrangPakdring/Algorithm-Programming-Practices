@@ -6,7 +6,7 @@ using ll = long long;
 	revised from kuangbin's template.
 	Prim() returns the total weight of MST.
 	after calling Prim(), search for SBMST.
-	mx[i][j] gives the maximum weight of an edge from i to j.
+	mx[i][j] gives the maximum weight of an edge of the cycle connecting i and j.
 
 	Note:
 	Qin Shi Huang's National Road System
