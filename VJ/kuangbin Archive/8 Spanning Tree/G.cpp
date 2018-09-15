@@ -1,30 +1,22 @@
 #include <bits/stdc++.h>
 using namespace std;
 using ll = long long;
-
-/* 
-	reference: kuangbin's template.
-	ChuLiu() returns the total weight of Directed MST.
-	O(mn)
-
-	problem link:
-	Command Network
-*/
+#define speedup cin.tie(0), cout.tie(0), ios::sync_with_stdio(0)
 
 using WeightType = ll;
 const ll inf = 0x3f3f3f3f3f3f3f3f;
-const ll maxn = 105;
-const ll maxm = 1e4 + 5;
+const ll maxn = 1005;
+const ll maxm = 1e4 * 2 + 5;
 struct Edge
 {
 	ll u, v;
 	WeightType w;
 }edge[maxm];
 ll pre[maxn]; // pre[i] parent of i
-ll id[maxn]; // id[i] index of a cycle node i is in
+ll id[maxn]; // id[i] index of a circuit node i is in
 ll vis[maxn]; 
 WeightType in[maxn]; // in[i] minimum weight of edges end at i
-ll pos; // find root if not assigned
+ll pos;
 
 WeightType ChuLiu(ll root, ll n, ll m, Edge edge[])
 {
@@ -90,10 +82,45 @@ WeightType ChuLiu(ll root, ll n, ll m, Edge edge[])
 			if (edge[i].u != edge[i].v)
 				edge[i].w -= in[v];
 //			else
-//				swap(edge[i], edge[--m]); // to be analyzed
+//				swap(edge[i], edge[--m]);
 		}
 		n = tn;
 		root = id[root];
 	}
 	return res;
+}
+
+ll n, m;
+ll super;
+
+int main(int argc, char const *argv[])
+{
+	speedup;
+
+	while (cin >> n >> m)
+	{
+		super = n;
+		ll sumw = 0;
+		for (ll i = 0; i < m; ++i)
+		{
+			auto&e = edge[i];
+			cin >> e.u >> e.v >> e.w;
+			assert(e.u != e.v);
+			sumw += e.w;
+		}
+		const ll inf = sumw + 1;
+//		cerr << "inf=" << inf << endl;
+		assert(inf < ::inf);
+		for (ll i = 0; i < n; ++i)
+		{
+			edge[i + m] = { super, i, inf };
+		}
+		auto ans = ChuLiu(super, n + 1, n + m, edge);
+		if (ans - inf >= inf || ans == -1)cout << "impossible" << endl;
+		else cout << ans - inf << ' ' << pos - m << endl;
+		
+		cout << endl;
+	}
+
+	return 0;
 }
