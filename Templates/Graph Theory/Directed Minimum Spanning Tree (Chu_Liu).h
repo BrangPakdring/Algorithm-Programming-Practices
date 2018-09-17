@@ -89,8 +89,6 @@ WeightType ChuLiu(ll root, ll n, ll m, Edge edge[])
 			// u and v are not in a same cycle
 			if (edge[i].u != edge[i].v)
 				edge[i].w -= in[v];
-//			else
-//				swap(edge[i], edge[--m]); // to be analyzed
 		}
 		n = tn;
 		root = id[root];
