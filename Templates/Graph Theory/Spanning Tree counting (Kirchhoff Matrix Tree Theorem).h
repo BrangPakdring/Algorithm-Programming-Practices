@@ -10,13 +10,6 @@ using ll = long long;
 
 const ll maxn = 105;
 const ll mod = 10007;
-ll inv[mod];
-
-ll Inverse(ll a, ll m)
-{
-	if (a == 1)return 1;
-	return Inverse(m % a, m) * (m - m / a) % m;
-}
 
 struct Matrix
 {
