@@ -22,6 +22,11 @@ struct Matrix
 {
 	ll mat[maxn][maxn];
 
+	Matrix()
+	{
+		this->Init();
+	}
+
 	void Init()
 	{
 		memset(mat, 0, sizeof mat);
@@ -29,38 +34,68 @@ struct Matrix
 
 	ll Determinant(ll n)
 	{
-		for (ll i = 0; i < n; ++i)
-			for (ll j = 0; j < n; ++j)
-				mat[i][j] = (mat[i][j] % mod + mod) % mod;
 		ll res = 1;
 		for (ll i = 0; i < n; ++i)
 		{
-			for (ll j = i; j < n; ++j)
-			{
-				if (mat[j][i] != 0)
-				{
-					for (ll k = i; k < n; ++k)
-						swap(mat[i][k], mat[j][k]);
-					if (i != j)
-						res = (-res + mod) % mod;
-					break;
-				}					
-			}
 			if (mat[i][i] == 0)
 			{
-				res = -1;
-				break;
-			}
-			for (ll j = i + 1; j < n; ++j)
-			{
-				ll mut = mat[j][i] * Inverse(mat[i][i], mod) % mod;
-				for (ll k = 1; k < n; ++k)
+				bool flag = false;
+				for (ll j = i + 1; j < n; ++j)
 				{
-					mat[j][k] = (mat[j][k] - mat[i][k] * mut % mod + mod) % mod;
+					if (mat[j][i])
+					{
+						flag = true;
+						for (ll k = i; k < n; ++k)
+						{
+							swap(mat[i][k], mat[j][k]);
+						}
+						res = -res;
+						break;
+					}
+				}
+				if (flag == false)
+				{
+					return 0;
 				}
 			}
-			res = res * mat[i][i] % mod;
+
+			for (ll j = i + 1; j < n; ++j)
+			{
+				while (mat[j][i])
+				{
+					ll t = mat[i][i] / mat[j][i];
+					for (ll k = i; k < n; ++k)
+					{
+						mat[i][k] = (mat[i][k] - t * mat[j][k]) % mod;
+						swap(mat[i][k], mat[j][k]);
+					}
+					res = -res;
+				}
+			}
+			res *= mat[i][i];
+			res %= mod;
 		}
-		return res;
+		return (res + mod) % mod;
 	}
 };
+
+ll CountingSpanningTrees(ll G[maxn][maxn], ll n)
+{
+	Matrix A;
+	for (ll i = 0; i < n; ++i)
+		for (ll j = 0; j < n; ++j)
+		{
+			if (i == j)continue;
+			if (G[i][j])
+			{
+				++A.mat[i][i];
+				A.mat[i][j] = -1;
+			}
+		}
+
+	for (ll i = 0; i < n; ++i)
+		for (ll j = 0; j < n; ++j)
+			A.mat[i][j] = (A.mat[i][j] % mod + mod) % mod;
+
+	return A.Determinant(n - 1);
+}
