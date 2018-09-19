@@ -4,11 +4,8 @@ using ll = long long;
 
 /* 
 	reference: kuangbin's template.
-	ChuLiu() returns the total weight of Directed MST.
-	O(mn)
 
 	problem link:
-	Command Network
 */
 
 const ll maxn = 105;
