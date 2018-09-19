@@ -68,6 +68,6 @@ struct Matrix
 			res *= mat[i][i];
 			res %= mod;
 		}
-		return res;
+		return (res + mod) % mod;
 	}
 };
