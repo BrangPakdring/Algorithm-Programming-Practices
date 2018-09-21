@@ -4,9 +4,9 @@ using ll = long long;
 
 /*
 	reference: kuangbin's template
-	edges' indeces are 0-based
-	nodes' indeces are 1-based
-	sccs' indeces are 1-based
+	edges' indices are 0-based
+	nodes' indices are 1-based
+	sccs' indices are 1-based
 	time complexity: O(V+E)
 
 	problem link:
