@@ -21,11 +21,11 @@ struct Edge
 }edge[maxm];
 ll head[maxn], tot; // tot total edges added
 ll low[maxn], dfn[maxn], stk[maxn];
-ll belong[maxn]; // belong[i] the scc i belongs to
+ll belong[maxn]; // belong[i] the scc node i belongs to
 ll idx, top;
 ll scc; // number of scc
 bool inStack[maxn];
-ll num[maxn]; // num[i] number of nodes i-th scc contains
+ll num[maxn]; // num[i] number of nodes scc i contains
  
 void AddEdge(ll u, ll v)
 {
