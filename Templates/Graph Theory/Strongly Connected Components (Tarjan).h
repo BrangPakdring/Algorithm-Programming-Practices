@@ -1,22 +1,31 @@
-
-#include <iostream>
-#include <cstring>
+#include <bits/stdc++.h>
 using namespace std;
-typedef long long ll;
- 
+using ll = long long;
+
+/*
+	reference: kuangbin's template
+	edges' indeces are 0-based
+	nodes' indeces are 1-based
+	sccs' indeces are 1-based
+	time complexity: O(V+E)
+
+	problem link:
+	Network of Schools 
+*/
+
 const ll maxn = 105;
 const ll maxm = 10005;
 struct Edge
 {
 	ll from, to, next;
 }edge[maxm];
-ll head[maxn], tot;
-ll low[maxn], dfn[maxn], stk[maxn], belong[maxn];
+ll head[maxn], tot; // tot total edges added
+ll low[maxn], dfn[maxn], stk[maxn];
+ll belong[maxn]; // belong[i] the scc i belongs to
 ll idx, top;
-ll scc;
+ll scc; // number of scc
 bool inStack[maxn];
-ll num[maxn];
-ll indeg[maxn], outdeg[maxn];
+ll num[maxn]; // num[i] number of nodes i-th scc contains
  
 void AddEdge(ll u, ll v)
 {
@@ -73,45 +82,4 @@ void Init()
 {
 	tot = 0;
 	memset(head, -1, sizeof head);
-}
- 
-ll n;
-
-int main()
-{
-	Init();
-	cin >> n;
-	for (ll i = 1; i <= n; ++i)
-	{
-		ll v;
-		while (cin >> v, v)
-		{
-			AddEdge(i, v);
-		}
-	}
-	CountSCC(n);
-	if (scc == 1)
-	{
-		cout << "1\n0";
-		return 0;
-	}
-/*	for (ll i = 1; i <= n; ++i)
-	{
-		fprintf(stderr, "belong[%lli]=%lli\n", i,belong[i]);
-	}*/
-	ll a = 0, b = 0;
-	for (ll i = 0; i < tot; ++i)
-	{
-		ll u = edge[i].from, v = edge[i].to;
-		if (belong[u] != belong[v])
-			++indeg[belong[v]], ++outdeg[belong[u]];
-	}
-	for (ll i = 1; i <= scc; ++i)
-	{
-		fprintf(stderr, "indeg[%lli]=%lli, outdeg[%lli]=%lli\n", i,indeg[i],i,outdeg[i]);
-		if (!indeg[i])++a;
-		if (!outdeg[i])++b;
-	}
-	
-	cout << a << '\n' << max(a, b);
 }
