@@ -26,7 +26,7 @@ ll idx, top;
 ll scc; // number of scc
 bool inStack[maxn];
 ll num[maxn]; // num[i] number of nodes scc i contains
- 
+
 void AddEdge(ll u, ll v)
 {
 	edge[tot].from = u;
@@ -34,7 +34,7 @@ void AddEdge(ll u, ll v)
 	edge[tot].next = head[u];
 	head[u] = tot++;
 }
- 
+
 void Tarjan(ll u)
 {
 	ll v;
@@ -66,7 +66,7 @@ void Tarjan(ll u)
 		} while (v != u);
 	}
 }
- 
+
 void CountSCC(ll n)
 {
 	memset(dfn, 0, sizeof dfn);
@@ -77,7 +77,7 @@ void CountSCC(ll n)
 		if (!dfn[i])
 			Tarjan(i);
 }
- 
+
 void Init()
 {
 	tot = 0;
