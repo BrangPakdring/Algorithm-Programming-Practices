@@ -1,6 +1,6 @@
 *.o
-/Contest Temp/
-in.txt
-out.txt
-temp.*
+#/Contest Temp/
+#in.txt
+#out.txt
+#temp.*
 
